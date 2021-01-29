@@ -25,7 +25,7 @@ Bitcoin Price Tracker
 2021-01-29                  USD 34943.87
 ```
 
-Option 2 displays the past date, current date, past price, and current price. The gain/loss is also displayed in terms of USD and percentages. Requires asking the user how many days in the past should it should get data on bitcoin. *Note: Comparing the price to 0 days in the past (intra-day price) is a valid option depending on the time of day. At a certain time each day Coindesk writes the current bitcoin price to their historical Bitcoin price API. Only after Coindesk writes this data does a 0 day option work.* 
+Option 2 displays the past date, current date, past price, and current price. The gain/loss is also displayed in terms of USD and percentages. Requires asking the user how many days in the past it should get data on bitcoin. *Note: Comparing the price to 0 days in the past (intra-day price) is a valid option depending on the time of day. At a certain time each day Coindesk writes the current bitcoin price to their historical Bitcoin price API. Only after Coindesk writes this data does a 0 day option work.* 
 
 Example output:
 
