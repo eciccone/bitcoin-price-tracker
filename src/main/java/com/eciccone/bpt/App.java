@@ -238,7 +238,7 @@ public class App {
 				// calculate the date from the days in the past
 				LocalDate prevDate = LocalDate.now().minusDays(pastDays);
 
-				// get historical prices and store in hashmap
+				// get historical prices and store in array list
 				ArrayList<BitcoinPrice> history = app.getHistoricalData(prevDate);
 
 				// print each date and associated price
