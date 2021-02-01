@@ -4,12 +4,16 @@ The **Bitcoin Price Tracker** is a simple command line interface application for
 ### Functionality
 - Get the current USD price of Bitcoin
 - Get price change since a specifc date while displaying gain/loss in both USD and percentage
+- Get a list of historical prices since a specific date
 
-Upon execution, the menu is displayed to the user. There are 3 options to choose from.
+Upon execution, the menu is displayed to the user. There are 4 options to choose from.
 
+```
 1. Get Current Price
 2. N-Day Price Change
+3. Display Historical Price(s)
 0. Quit
+```
 
 Option 1 displays the current date and price of Bitcoin to the user.
 
@@ -19,6 +23,7 @@ Example output:
 Bitcoin Price Tracker
 1. Get Current Price
 2. N-Day Price Change
+3. Display Historical Price(s)
 0. Quit
 :1
 
@@ -33,6 +38,7 @@ Example output:
 Bitcoin Price Tracker
 1. Get Current Price
 2. N-Day Price Change
+3. Display Historical Price(s)
 0. Quit
 :2
 
