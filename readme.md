@@ -46,4 +46,36 @@ How many days in the past to compare price?
 7 Day Price Change          USD 1708.72         5.17%
 ```
 
+Option 3 displays all the prices since a certain date (only displays historical data, so the current days price is not included). Each entry displays its date and its associated price. Requires asking the user how many days in the past it should get data on bitcoin.
+
+Example output:
+
+```
+ Bitcoin Price Tracker
+ 1. Get Current Price
+ 2. N-Day Price Change
+ 3. Display Historical Price(s)
+ 0. Quit
+:3
+
+ How many days in the past to compare price?
+:7
+
+ Past 7 days: 
+
+ 2021-01-24                     USD 32297.17 
+                
+ 2021-01-25                     USD 32255.35 
+                
+ 2021-01-26                     USD 32518.36 
+                
+ 2021-01-27                     USD 30425.39 
+                
+ 2021-01-28                     USD 33420.05 
+                
+ 2021-01-29                     USD 34264.01 
+                
+ 2021-01-30                     USD 34324.27 
+```
+
 Option 0 terminates the program.
