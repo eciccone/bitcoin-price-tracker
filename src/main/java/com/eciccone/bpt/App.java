@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.json.JSONObject;
@@ -93,6 +95,37 @@ public class App {
 		connection.disconnect();
 		
 		return prevPrice;
+	}
+
+	/**
+	 * Gets all the prices of Bitcoin since a certain day.
+	 * 
+	 * @param start the date to start getting Bitcoin data
+	 * @return a map of dates with their associated Bitcoin price
+	 */
+	public HashMap<LocalDate, Double> getHistoricalData(LocalDate start) {
+		HashMap<LocalDate, Double> prices = new HashMap<>();
+		LocalDate end = LocalDate.now();
+				
+		try {
+			HttpURLConnection connection = getConnection("https://api.coindesk.com/v1/bpi/historical/close.json?start=" + start + "&end=" + end);
+			JSONObject json = new JSONObject(getResponse(connection));
+
+			for(LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
+				double price = json.getJSONObject("bpi").getDouble(date.toString());
+				prices.put(date, price);
+			}
+
+			// coindesk API does not always include todays price, so we must add todays price to hashmap
+			prices.put(end, getCurrentPrice());
+
+		} catch(FileNotFoundException e) {
+			System.out.println("\nData not availble for that date.");
+		} catch (IOException e) {
+			System.out.println("Could not connect to Coindesk API.");
+		}
+
+		return prices;
 	}
 	
 	/**
@@ -196,6 +229,17 @@ public class App {
 					historicalPrice.setDate(prevDate);
 					historicalPrice.setPrice(app.getHistoricalPrice(prevDate));
 					Output.printPriceChange(currentPrice, historicalPrice, pastDays);
+				}
+			}
+			else if(response == 3) {
+				int pastDays = app.getNumberOfPastDays(scan);
+				LocalDate prevDate = LocalDate.now().minusDays(pastDays);
+				HashMap<LocalDate, Double> history = app.getHistoricalData(prevDate);
+
+				System.out.println("\n Past " + pastDays + " days: ");
+				for(Map.Entry<LocalDate, Double> entry : history.entrySet()) {
+					Output.printPrice(new BitcoinPrice(entry.getValue(), entry.getKey()));
+					//System.out.printf("\n %-15s %-15s", entry.getKey(), String.format("%.2f", entry.getValue()));
 				}
 			}
 			
