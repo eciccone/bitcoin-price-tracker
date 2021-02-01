@@ -14,6 +14,7 @@ public class Output {
 		System.out.println("\n Bitcoin Price Tracker");
 		System.out.println(" 1. Get Current Price");
 		System.out.println(" 2. N-Day Price Change");
+		System.out.println(" 3. Display Historical Price(s)");
 		System.out.println(" 0. Quit");
 		System.out.print(":");
 	}
