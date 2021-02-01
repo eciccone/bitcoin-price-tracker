@@ -117,9 +117,6 @@ public class App {
 				prices.add(new BitcoinPrice(price, date));
 			}
 
-			// coindesk API does not always include todays price, so we must add todays price to hashmap
-			prices.add(new BitcoinPrice(getCurrentPrice(), end));
-
 		} catch(FileNotFoundException e) {
 			System.out.println("\nData not availble for that date.");
 		} catch (IOException e) {
