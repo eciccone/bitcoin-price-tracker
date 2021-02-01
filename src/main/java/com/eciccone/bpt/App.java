@@ -115,11 +115,13 @@ public class App {
 				prices.add(new BitcoinPrice(price, date));
 			}
 
+			connection.disconnect();
 		} catch(FileNotFoundException e) {
 			System.out.println("\nData not availble for that date.");
 		} catch (IOException e) {
 			System.out.println("Could not connect to Coindesk API.");
 		}
+
 
 		return prices;
 	}
