@@ -231,15 +231,22 @@ public class App {
 					Output.printPriceChange(currentPrice, historicalPrice, pastDays);
 				}
 			}
+			// fetch historical data for each day and display -> user response = 3
 			else if(response == 3) {
+
+				// get how many days in the past from user
 				int pastDays = app.getNumberOfPastDays(scan);
+
+				// calculate the date from the days in the past
 				LocalDate prevDate = LocalDate.now().minusDays(pastDays);
+
+				// get historical prices and store in hashmap
 				HashMap<LocalDate, Double> history = app.getHistoricalData(prevDate);
 
+				// print each date and associated price
 				System.out.println("\n Past " + pastDays + " days: ");
 				for(Map.Entry<LocalDate, Double> entry : history.entrySet()) {
 					Output.printPrice(new BitcoinPrice(entry.getValue(), entry.getKey()));
-					//System.out.printf("\n %-15s %-15s", entry.getKey(), String.format("%.2f", entry.getValue()));
 				}
 			}
 			
