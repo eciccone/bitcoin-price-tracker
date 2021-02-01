@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -103,8 +104,8 @@ public class App {
 	 * @param start the date to start getting Bitcoin data
 	 * @return a map of dates with their associated Bitcoin price
 	 */
-	public HashMap<LocalDate, Double> getHistoricalData(LocalDate start) {
-		HashMap<LocalDate, Double> prices = new HashMap<>();
+	public ArrayList<BitcoinPrice> getHistoricalData(LocalDate start) {
+		ArrayList<BitcoinPrice> prices = new ArrayList<BitcoinPrice>();
 		LocalDate end = LocalDate.now();
 				
 		try {
@@ -113,11 +114,11 @@ public class App {
 
 			for(LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
 				double price = json.getJSONObject("bpi").getDouble(date.toString());
-				prices.put(date, price);
+				prices.add(new BitcoinPrice(price, date));
 			}
 
 			// coindesk API does not always include todays price, so we must add todays price to hashmap
-			prices.put(end, getCurrentPrice());
+			prices.add(new BitcoinPrice(getCurrentPrice(), end));
 
 		} catch(FileNotFoundException e) {
 			System.out.println("\nData not availble for that date.");
@@ -241,12 +242,12 @@ public class App {
 				LocalDate prevDate = LocalDate.now().minusDays(pastDays);
 
 				// get historical prices and store in hashmap
-				HashMap<LocalDate, Double> history = app.getHistoricalData(prevDate);
+				ArrayList<BitcoinPrice> history = app.getHistoricalData(prevDate);
 
 				// print each date and associated price
 				System.out.println("\n Past " + pastDays + " days: ");
-				for(Map.Entry<LocalDate, Double> entry : history.entrySet()) {
-					Output.printPrice(new BitcoinPrice(entry.getValue(), entry.getKey()));
+				for(BitcoinPrice bp : history) {
+					Output.printPrice(bp);
 				}
 			}
 			
